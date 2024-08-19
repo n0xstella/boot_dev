@@ -1,0 +1,35 @@
+Identifying the Big O complexity of an algorithm involves analyzing how its runtime or space requirements grow relative to the size of the input data. Here are some general guidelines to help you identify the types of Big O complexities based on code:
+
+1. **Look for Nested Loops:**
+    Nested loops often indicate polynomial time complexity, such as O(n^2), O(n^3), etc. 
+    Each nested loop contributes an additional factor to the overall complexity.
+
+2. **Count the Number of Operations:** 
+    Analyze the number of basic operations (assignments, comparisons, arithmetic operations, etc.) performed by the algorithm in terms of the input size. 
+    If the number of operations grows linearly with the input size, it's likely O(n). If it grows quadratically, it's likely O(n^2), and so on.
+
+3. **Identify Recursive Calls:** 
+    Recursive algorithms can have complex time complexities. 
+    Analyze the number of recursive calls and how the size of the problem reduces with each call. 
+    For example, binary search has a time complexity of O(log n) because it halves the search space with each recursive call.
+
+4. **Consider Sorting Algorithms:** 
+    Sorting algorithms often have well-defined time complexities. 
+    For example, bubble sort and selection sort are O(n^2), while merge sort and quicksort are O(n log n).
+
+5. **Check for Nested Data Structures:** 
+    If the algorithm operates on nested data structures like nested arrays or trees, 
+    the complexity might involve traversal of multiple levels, leading to complexities like O(n^2) or O(n log n) depending on the structure.
+
+6. **Analyze Space Complexity:** 
+    In addition to time complexity, consider the space (memory) complexity of the algorithm. 
+    Look for data structures like arrays, matrices, or hash tables that contribute to the memory usage. 
+    The space complexity is often expressed using Big O notation as well.
+
+7. **Use Profiling and Benchmarking:** 
+    Sometimes it's challenging to determine the complexity of an algorithm just by looking at the code. 
+    In such cases, you can use profiling and benchmarking tools to measure the actual runtime performance of the algorithm for different input sizes and
+     analyze how it scales.
+
+By applying these techniques and understanding common patterns in algorithms, yo
+    u can develop an intuition for identifying the types of Big O complexities based on code.
