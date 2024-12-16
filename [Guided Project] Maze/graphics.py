@@ -1,3 +1,12 @@
+"""
+This uses tkinter to draw a visual representation of a maze.
+Their is a single window that has a canvas, upon which all the drawing is done to create the waze.
+The canvas/window is a cartesian plane with the top left corner being (0,0), and 
+the maximal points (bottom left (y-axis) and top right (x-axis)).
+This represents the current resolution of the computer screen. 
+i.e... 3840 x 2160p (4k) / 1920 x 1080p (HD) 
+"""
+
 from tkinter import Tk, BOTH, Canvas
 
 class Window():

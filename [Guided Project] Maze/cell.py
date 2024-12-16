@@ -1,6 +1,15 @@
+"""
+Cell object of of the maze. Represents the indivudal blocks
+which composes the maze.
+
+"""
 from graphics import Point, Line
 
 class Cell():
+    """
+    Represents an individual square cell on the canvas. 
+    It's four walls, four corners and reference to the window 
+    """
     def __init__(self, win=None):
         self.has_left_wall = True
         self.has_right_wall = True
