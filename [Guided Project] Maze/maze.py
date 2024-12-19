@@ -19,6 +19,7 @@ class Maze:
         self._create_cells()
         self._break_entrance_and_exit()
         self._break_walls_r(0,0)
+        self._reset_cells_visited()
 
     def _create_cells(self):
         # Initialize cells and draw them
@@ -122,12 +123,12 @@ class Maze:
                 and not self._cells[ni][nj].visited
             ):
                 # Draw move and recurse
-                self.draw_move(self._cells[i][j], self._cells[ni][nj])
+                self._cells[i][j].draw_move(self._cells[ni][nj])
                 if self._solve_r(ni, nj):
                     return True
                 
                 # Undo move if path is incorrect
-                self.draw_move(self._cells[i][j], self._cells[ni][nj], undo=True)      
+                #self.draw_move(self._cells[i][j], self._cells[ni][nj], undo=True)      
 
         # No valid moves
         return False  
