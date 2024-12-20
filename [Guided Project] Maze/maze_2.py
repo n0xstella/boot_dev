@@ -1,3 +1,9 @@
+"""
+Issues with the _solve_r method in terms of pathing.
+Was going for a more pythonic method but nevermind.
+"""
+
+
 import time
 import random
 from cell import *
@@ -110,55 +116,43 @@ class Maze:
         if (i,j) == (self._num_cols - 1, self._num_rows - 1):
             return True
         
-        # move left if there is no wall and it hasn't been visited
-        if (
-            i > 0
-            and not self._cells[i][j].has_left_wall
-            and not self._cells[i - 1][j].visited
-        ):
-            self._cells[i][j].draw_move(self._cells[i - 1][j])
-            if self._solve_r(i - 1, j):
-                return True
-            else:
-                self._cells[i][j].draw_move(self._cells[i - 1][j], True)
+        directions = [
+            ((-1, 0), "has_left_wall", "has_right_wall"), # Move left
+            ((0, 1), "has_right_wall", "has_left_wall"),  # Move right
+            ((0, -1), "has_top_wall", "has_bottom_wall"), # Move up
+            ((1, 0), "has_bottom_wall", "has_top_wall"), # Move down
+        ]
 
-        # move right if there is no wall and it hasn't been visited
-        if (
-            i < self._num_cols - 1
-            and not self._cells[i][j].has_right_wall
-            and not self._cells[i + 1][j].visited
-        ):
-            self._cells[i][j].draw_move(self._cells[i + 1][j])
-            if self._solve_r(i + 1, j):
-                return True
-            else:
-                self._cells[i][j].draw_move(self._cells[i + 1][j], True)
+        # Randomize directions to vary the solving path
+        random.shuffle(directions)
 
-        # move up if there is no wall and it hasn't been visited
-        if (
-            j > 0
-            and not self._cells[i][j].has_top_wall
-            and not self._cells[i][j - 1].visited
-        ):
-            self._cells[i][j].draw_move(self._cells[i][j - 1])
-            if self._solve_r(i, j - 1):
-                return True
-            else:
-                self._cells[i][j].draw_move(self._cells[i][j - 1], True)
+        for (di, dj), curr_wall, next_wall in directions:
+            ni, nj = i + di, j + dj  # Neighbor coordinates
 
-        # move down if there is no wall and it hasn't been visited
-        if (
-            j < self._num_rows - 1
-            and not self._cells[i][j].has_bottom_wall
-            and not self._cells[i][j + 1].visited
-        ):
-            self._cells[i][j].draw_move(self._cells[i][j + 1])
-            if self._solve_r(i, j + 1):
-                return True
-            else:
-                self._cells[i][j].draw_move(self._cells[i][j + 1], True)
+            # Ensure the neighbor is within bounds
+            if 0 < ni < self._num_cols and 0 < nj < self._num_rows:
+                # Check both current cell's wall and neighbor's wall
+                if (
+                    not getattr(self._cells[i][j], curr_wall) and
+                    not getattr(self._cells[ni][nj], next_wall) and
+                    not self._cells[ni][nj].visited
+                ):
+                    print(f"Moving to cell ({ni}, {nj})")  # Debug: Moving to a neighbor
 
-        # we went the wrong way let the previous cell know by returning False
+                    # Draw the move to the neighbor cell
+                    self._cells[i][j].draw_move(self._cells[ni][nj])
+
+                    # Recursively solve from the neighbor cell
+                    if self._solve_r(ni, nj):
+                        return True
+
+                    # Undo the move if no solution is found
+                    print(f"Backtracking from cell ({ni}, {nj})")  # Debug: Backtracking
+                    self._cells[i][j].draw_move(self._cells[ni][nj], undo=True)
+
+        # No valid moves from this cell, backtrack
+        print(f"No moves possible from ({i}, {j}), backtracking...")  # Debug: No moves
+        self._cells[i][j].visited = False
         return False
         
     def _solve(self):
