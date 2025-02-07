@@ -1,5 +1,5 @@
 
-#LIFO - Last In, First Out (Waiting in a line at disney land)
+#LIFO - Last In, First Out (Waiting in a line at at McDonalds)
 
 class Queue:
     def __init__(self):

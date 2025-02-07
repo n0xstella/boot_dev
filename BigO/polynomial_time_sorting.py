@@ -24,7 +24,7 @@ def bubble_sort(nums):
                 nums[j], nums[j+1] = nums[j+1], nums[j]
     return nums
 
-#Merge Sort - O(n*log(n)) [LINEARRITHMIC]
+#Merge Sort - O(n log(n)) [LINEARRITHMIC]
 def merge_sort(nums):
     if len(nums) < 2:
         return nums
@@ -110,7 +110,7 @@ def insertion_sort(nums):
             j -= 1
     return nums
 
-#Quick Sort - O(n*log(n)) [LINEARRITHMIC]
+#Quick Sort - O(n log(n)) [LINEARRITHMIC]
 def quick_sort(nums, low, high):
     if not isinstance(nums, list):
         return nums
